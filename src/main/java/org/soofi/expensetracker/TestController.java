@@ -1,5 +1,6 @@
 package org.soofi.expensetracker;
 
+import org.soofi.expensetracker.model.AppUser;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -9,8 +10,13 @@ import java.util.Map;
 public class TestController {
 
     @GetMapping("/user")
-    public String sayHello() {
-        return "Hello world!";
+    public AppUser getUser() {
+        AppUser user = new AppUser();
+        user.setFirstName("hadi");
+        user.setLastName("soofi");
+        user.setEmail("soofi@gmail.com");
+        user.setPassword("12345");
+        return user;
     }
 
     @GetMapping("/{id}")
@@ -27,5 +33,10 @@ public class TestController {
     @PostMapping
     public String testPostMapping(@RequestBody Map<String, Object> myMap) {
         return "Got info " + myMap.get("info");
+    }
+
+    @PostMapping("/user")
+    public void postUserInfo(@RequestBody AppUser user) {
+        System.out.println(user.getFirstName() + ", " + user.getLastName() + ", " + user.getEmail() + ", " + user.getId() + ", " + user.getPassword());
     }
 }
